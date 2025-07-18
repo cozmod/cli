@@ -1,0 +1,350 @@
+:root {
+    --bg-color: #0a0a0a;
+    --text-color: #EBEEF5;
+    --secondary-text-color: #888;
+    --glow-color: rgba(125, 249, 255, 0.75);
+    --glow-color-soft: rgba(125, 249, 255, 0.15);
+    --border-color: #2a2a2a;
+    --font-sans: 'Inter', sans-serif;
+    --font-mono: 'Fira Code', monospace;
+    --accent-color: #7DF9FF;
+    --accent-color-hover: #5CDBFF;
+    --error-color: #e74c3c;
+    --success-color: #2ecc71;
+    --warning-color: #f39c12;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-sans);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    background-image: radial-gradient(circle at 90% 10%, var(--glow-color-soft) 0%, var(--bg-color) 30%);
+}
+
+.container {
+    width: 95%;
+    height: 95%;
+    max-width: 1400px;
+    background-color: rgba(10, 10, 10, 0.8);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+}
+
+.main-content {
+    display: flex;
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.panel {
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.panel-tabs {
+    display: flex;
+    gap: 10px;
+}
+
+.tab-btn {
+    background: transparent;
+    border: none;
+    color: var(--secondary-text-color);
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.tab-btn:hover {
+    color: var(--text-color);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.tab-btn.active {
+    color: var(--accent-color);
+    background-color: rgba(125, 249, 255, 0.1);
+}
+
+.tab-content {
+    display: none;
+    padding: 20px;
+    overflow-y: auto;
+    flex-grow: 1;
+    height: 100%;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.terminal-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.terminal-controls button {
+    background: transparent;
+    border: none;
+    color: var(--secondary-text-color);
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.terminal-controls button:hover {
+    color: var(--text-color);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Custom scrollbar for webkit browsers */
+.panel::-webkit-scrollbar {
+    width: 6px;
+}
+.panel::-webkit-scrollbar-track {
+    background: transparent;
+}
+.panel::-webkit-scrollbar-thumb {
+    background-color: var(--border-color);
+    border-radius: 10px;
+}
+
+.terminal-view {
+    flex-basis: 60%;
+    border-left: 1px solid var(--border-color);
+    font-family: var(--font-mono);
+    font-size: 14px;
+}
+
+.thought-view {
+    flex-basis: 40%;
+}
+
+.panel-title {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    color: var(--secondary-text-color);
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Terminal styling */
+.terminal-view .line {
+    margin-bottom: 5px;
+    white-space: pre-wrap;
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+}
+.terminal-view .prompt {
+    color: var(--glow-color);
+}
+.terminal-view .command {
+    color: var(--text-color);
+}
+.terminal-view .command-slash_command {
+    color: var(--accent-color);
+}
+.terminal-view .command-at_command {
+    color: var(--warning-color);
+}
+.terminal-view .command-shell_command {
+    color: var(--success-color);
+}
+.terminal-view .output {
+    color: var(--secondary-text-color);
+    padding-right: 15px;
+}
+
+/* Tool entry styling */
+.tool-entry {
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 5px;
+    border-right: 3px solid var(--accent-color);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    white-space: pre-wrap;
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+}
+
+/* Thought view styling */
+.thought-view .thought-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+}
+.thought-item .icon {
+    margin-left: 10px;
+    margin-top: 2px;
+    font-size: 16px;
+    width: 20px;
+}
+.thought-item .text {
+    flex-grow: 1;
+}
+.thought-item .icon.processing {
+    color: var(--glow-color);
+    animation: pulse 1.5s infinite;
+}
+.thought-item .icon.done {
+    color: #2ecc71;
+}
+ .thought-item .icon.error {
+    color: #e74c3c;
+}
+.thought-item .icon.idea {
+    color: var(--text-color);
+}
+
+/* Command Console styling */
+.command-console {
+    border-top: 1px solid var(--border-color);
+    padding: 15px 20px;
+}
+
+.controls-wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.command-buttons {
+    display: flex;
+    gap: 10px;
+    margin-right: auto;
+}
+
+.command-btn {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    color: var(--secondary-text-color);
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.command-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+}
+
+.command-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.command-input {
+    flex-grow: 1;
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 12px 15px;
+    color: var(--text-color);
+    font-size: 16px;
+    font-family: var(--font-sans);
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.command-input:focus {
+    border-color: var(--glow-color);
+    box-shadow: 0 0 15px var(--glow-color-soft);
+}
+
+#send-command-btn {
+    background-color: transparent;
+    border: none;
+    color: var(--secondary-text-color);
+    font-size: 18px;
+    cursor: pointer;
+    padding: 10px;
+    margin-right: 5px;
+    transition: color 0.2s;
+}
+
+#send-command-btn:hover {
+    color: var(--accent-color);
+}
+
+#send-command-btn:disabled {
+    color: var(--border-color);
+    cursor: not-allowed;
+}
+
+/* Engine status styling */
+#engine-status {
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.status-stopped {
+    color: var(--secondary-text-color);
+}
+
+.status-starting {
+    color: var(--warning-color);
+    animation: pulse 1.5s infinite;
+}
+
+.status-running {
+    color: var(--success-color);
+}
+
+.status-error {
+    color: var(--error-color);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+    0% { opacity: 0.7; }
+    50% { opacity: 1; }
+    100% { opacity: 0.7; }
+}

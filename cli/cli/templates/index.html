@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عامل لینوکسی مرکز تحقیقات</title>
+    
+    <link rel="stylesheet" href="/static/style.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Fira+Code&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="container">
+        <div class="main-content">
+            <!-- Panel سمت راست برای خروجی Gemini -->
+            <div class="panel output-view" id="output-view">
+                <div class="panel-header">
+                    <h2 class="panel-title">خروجی Gemini</h2>
+                    <div class="panel-tabs">
+                        <button class="tab-btn active" data-tab="output">خروجی</button>
+                        <button class="tab-btn" data-tab="thinking">تفکر</button>
+                        <button class="tab-btn" data-tab="tools">ابزارها</button>
+                    </div>
+                </div>
+                <div class="tab-content active" id="output-tab">
+                    <pre id="output-container">برای شروع، موتور Gemini را راه‌اندازی کنید.</pre>
+                </div>
+                <div class="tab-content" id="thinking-tab">
+                    <pre id="thinking-container">فرآیند تفکر Gemini اینجا نمایش داده می‌شود.</pre>
+                </div>
+                <div class="tab-content" id="tools-tab">
+                    <pre id="tools-container">ابزارهای استفاده شده توسط Gemini اینجا نمایش داده می‌شود.</pre>
+                </div>
+            </div>
+
+            <!-- Panel سمت چپ برای ترمینال -->
+            <div class="panel terminal-view" id="terminal-view">
+                <div class="panel-header">
+                    <h2 class="panel-title">ترمینال زنده</h2>
+                    <div class="terminal-controls">
+                        <button id="clear-terminal-btn" title="پاک کردن ترمینال"><i class="fas fa-eraser"></i></button>
+                    </div>
+                </div>
+                <div id="terminal-container">
+                    <div class="line">
+                        <span class="output">عامل لینوکسی مرکز تحقیقات [نسخه 1.0]</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- بخش پایین برای ورود دستور -->
+        <div class="command-console">
+            <div class="controls-wrapper">
+                <button id="start-engine-btn">🚀 راه‌اندازی موتور</button>
+                <div id="engine-status" class="status-stopped">● موتور: متوقف</div>
+                <div class="command-buttons">
+                    <button class="command-btn" data-prefix="/">/ دستور</button>
+                    <button class="command-btn" data-prefix="@">@ ابزار</button>
+                    <button class="command-btn" data-prefix="!">! شل</button>
+                </div>
+            </div>
+            <div class="command-input-wrapper">
+                <input type="text" id="command-input" class="command-input" placeholder="ابتدا موتور را راه‌اندازی کنید..." disabled>
+                <button id="send-command-btn" disabled><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
